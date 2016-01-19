@@ -158,6 +158,12 @@ var Comment = React.createClass({
 });
 
 var Tree = React.createClass({
+  getInitialState: function() {
+    return {
+      max: Math.floor((Math.random() * 20) + 90),
+      opacity: Math.random() * 0.2 + 0.8
+    };
+  },
   diffInSeconds: function(){
     if(!this.props.plantedAt) {return 0}
     var timeNow = Math.round(new Date().getTime() / 1000)
@@ -176,13 +182,13 @@ var Tree = React.createClass({
   },
   treeSize: function(){
     var size = this.diffInSeconds()/3 + 10;
-    return Math.min(size, 100);
+    return Math.min(size, this.state.max);
   },
   render: function() {
     var src= ('images/'+ this.treeType() + '.svg')
     return (
       <span className="comment">
-        <img src={src} style={{height: this.treeSize()}} />
+        <img src={src} style={{opacity: this.state.opacity, height: this.treeSize()}} />
       </span>
     );
   }
