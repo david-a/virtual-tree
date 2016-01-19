@@ -168,15 +168,15 @@ var Tree = React.createClass({
     switch (true) {
       case (diffInMinutes < 2):
         return 'small';
-      case (diffInMinutes >= 2 && diffInMinutes < 5):
+      case (diffInMinutes >= 2 && diffInMinutes < 4.5):
         return 'medium';
-      case (diffInMinutes >= 5):
+      case (diffInMinutes >= 4.5):
         return 'large';
     }
   },
   treeSize: function(){
-    var max = Math.min(this.diffInSeconds()/3, 100);
-    return Math.max(max, 10);
+    var size = this.diffInSeconds()/3 + 10;
+    return Math.min(size, 100);
   },
   render: function() {
     var src= ('images/'+ this.treeType() + '.svg')
