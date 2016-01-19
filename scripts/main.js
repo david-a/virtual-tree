@@ -122,18 +122,17 @@ var CommentForm = React.createClass({
           <h3>מלא את פרטיך בכדי לשתול עץ ביער:</h3>
           <form className="commentForm" onSubmit={this.handleSubmit}>
             <input style={{fontSize: 16, marginLeft: 20}} type="text" placeholder="איך קוראים לך?" ref="author" />
-            <select style={{fontSize: 16, marginLeft: 20}} ref="school">
-              <option value="" disabled selected>בית ספר</option>
-              <option value="תחכמוני">תחכמוני</option>
-              <option value="תומר">תומר</option>
-              <option value="נועם נריה">נועם נריה</option>
-              <option value="מאיר">מאיר</option>
-              <option value="קשת יהונתן">קשת יהונתן</option>
-              <option value="רמב״ם">רמב״ם</option>
-              <option value="גלבוע">גלבוע</option>
-              <option value="אורח">אורח</option>
-            </select>
-            <input style={{fontSize: 16}} type="submit" value="שתול!" />
+            <input style={{fontSize: 16, marginLeft: 20}} ref="school" type="text" list="schoolname" placeholder="שם בית הספר" />
+            <datalist id="schoolname">
+              <option value="תחכמוני" />
+              <option value="תומר" />
+              <option value="נועם נריה" />
+              <option value="מאיר" />
+              <option value="קשת יהונתן" />
+              <option value="רמב״ם" />
+              <option value="גלבוע" />
+            </datalist>
+            <input style={{fontSize: 16, width: 70, backgroundColor: '#57b300', color: 'white', height: 22, border: 'none'}} type="submit" value="שתול !" />
           </form>
         </div>
       </div>
