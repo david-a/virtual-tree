@@ -42,24 +42,13 @@ function eraseCookie(name) {
 var CommentBox = React.createClass({
   loadCommentsFromServer: function() {
     var that = this;
-    myDataRef.child('trees').once("value", function(snapshot) {
+    myDataRef.child('trees').on("value", function(snapshot) {
       var snap = snapshot.val();
       var comments = $.map(snap, function(comment){return {author: comment.author, school: comment.school, plantedAt: comment.plantedAt}}).reverse()
       that.setState({data: comments});
     }, function (errorObject) {
       console.log("The read failed: " + errorObject.code);
     });
-    // $.ajax({
-    //   url: this.props.url,
-    //   dataType: 'json',
-    //   cache: false,
-    //   success: function(data) {
-    //     this.setState({data: data});
-    //   }.bind(this),
-    //   error: function(xhr, status, err) {
-    //     console.error(this.props.url, status, err.toString());
-    //   }.bind(this)
-    // });
   },
   getInitialState: function() {
     return {data: []};
@@ -67,25 +56,12 @@ var CommentBox = React.createClass({
   componentDidMount: function() {
     this.loadCommentsFromServer();
     setInterval(this.forceUpdate(), 1000);
-    setInterval(this.loadCommentsFromServer, this.props.pollInterval);
   },
   handleCommentSubmit: function(comment) {
     var comments = this.state.data;
     var newComments = [comment].concat(comments);
     this.setState({data: newComments});
     myDataRef.child('trees').push(comment);
-    // $.ajax({
-    //   url: this.props.url,
-    //   dataType: 'json',
-    //   type: 'POST',
-    //   data: comment,
-    //   success: function(data) {
-    //     this.setState({data: data});
-    //   }.bind(this),
-    //   error: function(xhr, status, err) {
-    //     console.error(this.props.url, status, err.toString());
-    //   }.bind(this)
-    // });
   },
   render: function() {
     return (
@@ -211,7 +187,7 @@ if (parseParam("resetForm")) {
   eraseCookie("blockTrees")
 }
 React.render(
-  <CommentBox url="/api/comments" pollInterval={10000} />,
+  <CommentBox url="/api/comments" />,
   document.getElementById('content')
 );
 
