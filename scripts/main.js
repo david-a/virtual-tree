@@ -53,9 +53,15 @@ var CommentBox = React.createClass({
   getInitialState: function() {
     return {data: []};
   },
+  updateIt: function(){
+    this.forceUpdate();
+  },
   componentDidMount: function() {
     this.loadCommentsFromServer();
-    setInterval(this.forceUpdate(), 1000);
+    setInterval(this.updateIt, 2000);
+  },
+  componentWillUnmount: function() {
+    clearInterval(this.updateIt);
   },
   handleCommentSubmit: function(comment) {
     var comments = this.state.data;
@@ -76,9 +82,9 @@ var CommentBox = React.createClass({
 
 var CommentList = React.createClass({
   render: function() {
-    var commentNodes = this.props.data.map(function (comment) {
+    var commentNodes = this.props.data.map(function (comment, index) {
       return (
-        <Comment author={comment.author} school={comment.school} plantedAt={comment.plantedAt} />
+        <Comment key={index} author={comment.author} school={comment.school} plantedAt={comment.plantedAt} />
       );
     });
     return (
@@ -162,9 +168,9 @@ var Tree = React.createClass({
     switch (true) {
       case (diffInMinutes < 2):
         return 'small';
-      case (diffInMinutes > 2 && diffInMinutes < 5):
+      case (diffInMinutes >= 2 && diffInMinutes < 5):
         return 'medium';
-      case (diffInMinutes > 5):
+      case (diffInMinutes >= 5):
         return 'large';
     }
   },
