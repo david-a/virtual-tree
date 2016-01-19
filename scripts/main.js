@@ -131,8 +131,7 @@ var CommentForm = React.createClass({
       return;
     }
     var timeNow = new Date().getTime() ;
-    this.props.onCommentSubmit({author: author, school: school, plantedAt: timeNow/1000});
-    // document.cookie="stopem="+timeNow.toString();
+    this.props.onCommentSubmit({author: author, school: school, plantedAt: Math.round(timeNow/1000)});
     createCookie('blockTrees',(timeNow + 420000),1);
 
     React.findDOMNode(this.refs.author).value = '';
