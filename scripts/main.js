@@ -199,7 +199,7 @@ var Tree = React.createClass({
     return Math.max(max, 10);
   },
   render: function() {
-    var src= ('../images/'+ this.treeType() + '.svg')
+    var src= ('images/'+ this.treeType() + '.svg')
     return (
       <span className="comment">
         <img src={src} style={{height: this.treeSize()}} />
