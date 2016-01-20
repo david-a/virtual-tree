@@ -123,12 +123,12 @@ var CommentForm = React.createClass({
   },
   render: function() {
     return (
-      <div style={{height: 85}}>
+      <div style={{height: 100}}>
         <div style={{display: this.state.showForm}}>
           <h3>מלא את פרטיך בכדי לשתול עץ ביער:</h3>
           <form className="commentForm" onSubmit={this.handleSubmit}>
-            <input style={{fontSize: 16, marginLeft: 20}} type="text" placeholder="איך קוראים לך?" ref="author" />
-            <input style={{fontSize: 16, marginLeft: 20}} ref="school" type="text" list="schoolname" placeholder="שם בית הספר" />
+            <input style={{fontSize: 16, marginLeft: 20}} type="text" placeholder="איך קוראים לך?" ref="author" maxLength={20} />
+            <input style={{fontSize: 16, marginLeft: 20}} ref="school" type="text" list="schoolname" placeholder="שם בית הספר" maxLength={20} />
             <datalist id="schoolname">
               <option value="תחכמוני" />
               <option value="תומר" />
@@ -151,7 +151,8 @@ var Comment = React.createClass({
     return (
       <div className="comment" style={{display: 'flex', alignItems: 'center', width: 100, height: 120, padding: 30, justifyContent: 'flex-end', flexDirection: 'column'}}>
           <Tree plantedAt={this.props.plantedAt}/>
-          <span style={{textAlign: 'center'}}>{(this.props.author + ", " + this.props.school)}</span>
+          <span style={{textAlign: 'center'}}>{(this.props.author + ", ")}</span>
+          <span style={{textAlign: 'center'}}>{this.props.school}</span>
       </div>
     );
   }
