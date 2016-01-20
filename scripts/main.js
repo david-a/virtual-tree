@@ -149,9 +149,9 @@ var CommentForm = React.createClass({
 var Comment = React.createClass({
   render: function() {
     return (
-      <div className="comment" style={{display: 'flex', alignItems: 'center', height: 120, padding: 30, justifyContent: 'flex-end', flexDirection: 'column'}}>
+      <div className="comment" style={{display: 'flex', alignItems: 'center', width: 100, height: 120, padding: 30, justifyContent: 'flex-end', flexDirection: 'column'}}>
           <Tree plantedAt={this.props.plantedAt}/>
-          <span>{this.props.author + ", " + this.props.school}</span>
+          <span style={{textAlign: 'center'}}>{(this.props.author + ", " + this.props.school)}</span>
       </div>
     );
   }
@@ -167,7 +167,7 @@ var Tree = React.createClass({
   diffInSeconds: function(){
     if(!this.props.plantedAt) {return 0}
     var timeNow = Math.round(new Date().getTime() / 1000)
-    return (timeNow - this.props.plantedAt);
+    return Math.abs(timeNow - this.props.plantedAt);
   },
   treeType: function(){
     var diffInMinutes = this.diffInSeconds()/60
