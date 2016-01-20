@@ -45,13 +45,13 @@ var CommentBox = React.createClass({
     myDataRef.child('trees').on("value", function(snapshot) {
       var snap = snapshot.val();
       var comments = $.map(snap, function(comment){return {author: comment.author, school: comment.school, plantedAt: comment.plantedAt}}).reverse()
-      that.setState({data: comments});
+      that.setState({data: comments, numOfTrees: comments.length + " עצים"});
     }, function (errorObject) {
       console.log("The read failed: " + errorObject.code);
     });
   },
   getInitialState: function() {
-    return {data: []};
+    return {data: [], numOfTrees: "טוען..."};
   },
   updateIt: function(){
     this.forceUpdate();
@@ -72,7 +72,9 @@ var CommentBox = React.createClass({
   render: function() {
     return (
       <div className="commentBox">
-        <h1>יער וירטואלי לזכרו של אביתר תורג׳מן ז״ל</h1>
+        <h1>חורשת אביתר</h1>
+        <h2 style={{color: '#316600'}}>חורשה וירטואלית לזכרו של אביתר תורג׳מן ז״ל</h2>
+        <h3 style={{color: '#57b300', margin: 0}}>כרגע בחורשה: {this.state.numOfTrees}</h3>
         <CommentForm onCommentSubmit={this.handleCommentSubmit} />
         <CommentList data={this.state.data} />
       </div>
@@ -123,9 +125,9 @@ var CommentForm = React.createClass({
   },
   render: function() {
     return (
-      <div style={{height: 100}}>
+      <div style={{marginBottom: 50}}>
         <div style={{display: this.state.showForm}}>
-          <h3>מלא את פרטיך בכדי לשתול עץ ביער:</h3>
+          <h3>מלא את פרטיך בכדי לשתול עץ בחורשה:</h3>
           <form className="commentForm" onSubmit={this.handleSubmit}>
             <input style={{fontSize: 16, marginLeft: 20}} type="text" placeholder="איך קוראים לך?" ref="author" maxLength={20} />
             <input style={{fontSize: 16, marginLeft: 20}} ref="school" type="text" list="schoolname" placeholder="שם בית הספר" maxLength={20} />
