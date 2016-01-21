@@ -59,6 +59,12 @@ var CommentBox = React.createClass({
   componentDidMount: function() {
     this.loadCommentsFromServer();
     setInterval(this.updateIt, 2000);
+    setTimeout(function() {
+      var el = document.getElementById('credits')
+      if (el.classList.contains('is-paused')){
+        el.classList.remove('is-paused');
+      }
+    }, 300);
   },
   componentWillUnmount: function() {
     clearInterval(this.updateIt);
