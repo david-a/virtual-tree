@@ -72,9 +72,14 @@ var CommentBox = React.createClass({
   render: function() {
     return (
       <div className="commentBox">
-        <h1>חורשת אביתר</h1>
-        <h2 style={{color: '#316600'}}>חורשה וירטואלית לזכרו של אביתר תורג׳מן ז״ל</h2>
-        <h3 style={{color: '#57b300', margin: 0}}>כרגע בחורשה: {this.state.numOfTrees}</h3>
+        <div style={{display: 'flex', flexDirection: 'row'}}>
+          <img src='http://res.cloudinary.com/d3d/image/upload/c_scale,h_150/v1453371028/eviathar_n67vkc.jpg' style={{marginLeft: 20}} />
+          <div>
+            <h1>חורשת אביתר</h1>
+            <h2 style={{color: '#316600', margin: 0}}>חורשה וירטואלית לזכרו של אביתר תורג׳מן ז״ל</h2>
+            <h3 style={{color: '#57b300', margin: 0}}>כרגע בחורשה: {this.state.numOfTrees}</h3>
+          </div>
+        </div>
         <CommentForm onCommentSubmit={this.handleCommentSubmit} />
         <CommentList data={this.state.data} />
       </div>
@@ -104,7 +109,7 @@ var CommentForm = React.createClass({
       return { showForm: 'none' };
     }
     else {
-      return { showForm: 'normal' };
+      return { showForm: 'inline-block' };
     }
   },
   handleSubmit: function(e) {
@@ -126,8 +131,8 @@ var CommentForm = React.createClass({
   render: function() {
     return (
       <div style={{marginBottom: 50}}>
-        <div style={{display: this.state.showForm}}>
-          <h3>מלא את פרטיך בכדי לשתול עץ בחורשה:</h3>
+        <div style={{display: this.state.showForm, backgroundColor: '#A4CEFA', padding: 10, margin: '10px 0'}}>
+          <h3 style={{lineHeight: '1em'}}>מלא את פרטיך בכדי לשתול עץ בחורשה:</h3>
           <form className="commentForm" onSubmit={this.handleSubmit}>
             <input style={{fontSize: 16, marginLeft: 20}} type="text" placeholder="איך קוראים לך?" ref="author" maxLength={20} />
             <input style={{fontSize: 16, marginLeft: 20}} ref="school" type="text" list="schoolname" placeholder="שם בית הספר" maxLength={20} />
@@ -172,15 +177,15 @@ var Tree = React.createClass({
     var timeNow = Math.round(new Date().getTime() / 1000)
     return Math.abs(timeNow - this.props.plantedAt);
   },
-  treeType: function(){
+  treeImg: function(){
     var diffInMinutes = this.diffInSeconds()/60
     switch (true) {
       case (diffInMinutes < 2):
-        return 'small';
+        return 'http://res.cloudinary.com/d3d/image/upload/v1453371002/small_hk6lsy.svg';
       case (diffInMinutes >= 2 && diffInMinutes < 4.5):
-        return 'medium';
+        return 'http://res.cloudinary.com/d3d/image/upload/v1453371002/medium_bw9wqw.svg';
       case (diffInMinutes >= 4.5):
-        return 'large';
+        return 'http://res.cloudinary.com/d3d/image/upload/v1453371002/large_irpqwy.svg';
     }
   },
   treeSize: function(){
@@ -188,10 +193,9 @@ var Tree = React.createClass({
     return Math.min(size, this.state.max);
   },
   render: function() {
-    var src= ('images/'+ this.treeType() + '.svg')
     return (
       <span className="comment">
-        <img src={src} style={{opacity: this.state.opacity, height: this.treeSize()}} />
+        <img src={this.treeImg()} style={{opacity: this.state.opacity, height: this.treeSize()}} />
       </span>
     );
   }
